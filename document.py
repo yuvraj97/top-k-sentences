@@ -5,6 +5,10 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 import re
 
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
 def upperCase(word: str) -> float:
     """
     :param word: string
