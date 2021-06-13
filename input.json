@@ -1,0 +1,1983 @@
+{
+    "sections":[
+       {
+          "heading":"1 Introduction",
+          "text":"Empirical research requires gaining and maintaining an understanding of the body of work in specific area. For example, typical questions researchers face are which papers describe which tasks and processes, use which materials and how those relate to one another. While there are review papers for some areas, such information is generally difficult to obtain without reading a large number of publications.\nCurrent efforts to address this gap are search engines such as Google Scholar,1 Scopus2 or Semantic Scholar,3 which mainly focus on navigating author and citations graphs.\nThe task tackled here is mention-level identification and classification of keyphrases, e.g. Keyphrase Extraction (TASK), as well as extracting semantic relations between keywords, e.g. Keyphrase Extraction HYPONYM-OF Information Extraction. These tasks are related to the tasks of named entity recognition, named entity\n1https://scholar.google.co.uk/ 2http://www.scopus.com/ 3https://www.semanticscholar.org/\nclassification and relation extraction. However, keyphrases are much more challenging to identify than e.g. person names, since they vary significantly between domains, lack clear signifiers and contexts and can consist of many tokens. For this purpose, a double-annotated corpus of 500 publications with mention-level annotations was produced, consisting of scientific articles of the Computer Science, Material Sciences and Physics domains.\nExtracting keyphrases and relations between them is of great interest to scientific publishers as it helps to recommend articles to readers, highlight missing citations to authors, identify potential reviewers for submissions, and analyse research trends over time. Note that organising keyphrases in terms of synonym and hypernym relations is particularly useful for search scenarios, e.g. a reader may search for articles on information extraction, and through hypernym prediction would also receive articles on named entity recognition or relation extraction.\nWe expect the outcomes of the task to be relevant to the wider information extraction, knowledge base population and knowledge base construction communities, as it offers a novel application domain for methods researched in that area, while still offering domain-related challenges.\nSince the dataset is annotated for three tasks dependent on one another, it could also be used as a testbed for joint learning or structured prediction approaches to information extraction (Kate and Mooney, 2010; Singh et al., 2013; Augenstein et al., 2015; Goyal and Dyer, 2016).\nFurthermore, we expect the task to be interesting for researchers studying tasks aiming at understanding scientific content, such as keyphrase extraction (Kim et al., 2010b; Hasan and Ng, 2014; Sterckx et al., 2016; Augenstein and S\u00f8gaard, 2017), semantic relation extraction (Tateisi et al.,\nar X\niv :1\n70 4.\n02 85\n3v 3\n[ cs\n.C L\n] 2\nM ay\n2 01\n7\n2014; Gupta and Manning, 2011; Marsi and O\u0308ztu\u0308rk, 2015), topic classification of scientific articles (O\u0301 Se\u0301aghdha and Teufel, 2014), citation context extraction (Teufel, 2006; Kaplan et al., 2009), extracting author and citation graphs (Peng and McCallum, 2006; Chaimongkol et al., 2014; Sim et al., 2015) or a combination of those (Radev and Abu-Jbara, 2012; Gollapalli and Li, 2015; Guo et al., 2015).\nThe expected impact of the task is an interest of the above mentioned research communities beyond the task due to the release of a new corpus, leading to novel research methods for information extraction from scientific documents. What will be particularly useful about the proposed corpus are annotations of hypernym and synonym relations on mention-level, as existing hypernym and synonym relation resources are on type-level, e.g. WordNet.4 Further, we expect that these methods will directly impact industrial solutions to making sense of publications, partly due to the task organisers\u2019 collaboration with Elsevier.5",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":410,
+                "paragraph_id":0,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":409,
+                "end_index":581,
+                "paragraph_id":1,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":581,
+                "end_index":585,
+                "paragraph_id":2,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":581,
+                "end_index":1346,
+                "paragraph_id":3,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1434,
+                "end_index":1998,
+                "paragraph_id":4,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1997,
+                "end_index":2281,
+                "paragraph_id":5,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":2280,
+                "end_index":2559,
+                "paragraph_id":6,
+                "references":[
+                   {
+                      "targetRef":"#b17",
+                      "referenceText":"(Kate and Mooney, 2010;"
+                   },
+                   {
+                      "targetRef":"#b36",
+                      "referenceText":"Singh et al., 2013;"
+                   },
+                   {
+                      "targetRef":"#b3",
+                      "referenceText":"Augenstein et al., 2015;"
+                   },
+                   {
+                      "targetRef":"#b10",
+                      "referenceText":"Goyal and Dyer, 2016)"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":2561,
+                "end_index":2853,
+                "paragraph_id":7,
+                "references":[
+                   {
+                      "targetRef":"#b20",
+                      "referenceText":"(Kim et al., 2010b;"
+                   },
+                   {
+                      "targetRef":"#b13",
+                      "referenceText":"Hasan and Ng, 2014;"
+                   },
+                   {
+                      "targetRef":"#b39",
+                      "referenceText":"Sterckx et al., 2016;"
+                   },
+                   {
+                      "targetRef":"#b2",
+                      "referenceText":"Augenstein and S\u00f8gaard, 2017)"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":2853,
+                "end_index":2870,
+                "paragraph_id":8,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":2870,
+                "end_index":3224,
+                "paragraph_id":9,
+                "references":[
+                   {
+                      "targetRef":"#b12",
+                      "referenceText":"Gupta and Manning, 2011;"
+                   },
+                   {
+                      "targetRef":null,
+                      "referenceText":"Marsi and Ozt\u00fcrk, 2015)"
+                   },
+                   {
+                      "targetRef":"#b42",
+                      "referenceText":"(Teufel, 2006;"
+                   },
+                   {
+                      "targetRef":"#b16",
+                      "referenceText":"Kaplan et al., 2009)"
+                   },
+                   {
+                      "targetRef":"#b30",
+                      "referenceText":"(Peng and McCallum, 2006;"
+                   },
+                   {
+                      "targetRef":"#b6",
+                      "referenceText":"Chaimongkol et al., 2014;"
+                   },
+                   {
+                      "targetRef":"#b35",
+                      "referenceText":"Sim et al., 2015)"
+                   },
+                   {
+                      "targetRef":"#b33",
+                      "referenceText":"(Radev and Abu-Jbara, 2012;"
+                   },
+                   {
+                      "targetRef":"#b9",
+                      "referenceText":"Gollapalli and Li, 2015;"
+                   },
+                   {
+                      "targetRef":"#b11",
+                      "referenceText":"Guo et al., 2015)"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":3314,
+                "end_index":3937,
+                "paragraph_id":10,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"2 Task Description",
+          "text":"The task is divided into three subtasks:\nA) Mention-level keyphrase identification\nB) Mention-level keyphrase classification. Keyphrase types are PROCESS (including methods, equipment), TASK and MATERIAL (including corpora, physical materials)\nC) Mention-level semantic relation extraction between keyphrases with the same keyphrase types. Relation types used are HYPONYMOF and SYNONYM-OF.\nWe will refer to the above subtasks as Subtask A, Subtask B, and Subtask C respectively.\nA shortened (artificial) example of a data instance for the Computer Science area is displayed in Example 1, examples for Material Science and Physics are included in the appendix. The first part is the plain text paragraph (with keyphrases in italics for better readability), followed by stand-off keyphrase annotations based on character offsets, followed relation annotations.\n4https://wordnet.princeton.edu/ 5https://www.elsevier.com/\nExample 1. Text: Information extraction is the process of extracting structured data from unstructured text, which is relevant for several end-to-end tasks, including question answering. This paper addresses the tasks of named entity recognition (NER), a subtask of information extraction, using conditional random fields (CRF). Our method is evaluated on the ConLL-2003 NER corpus.\nID Type Start End 0 TASK 0 22 1 TASK 150 168 2 TASK 204 228 3 TASK 230 233 4 TASK 249 271 5 PROCESS 279 304 6 PROCESS 306 309 7 MATERIAL 343 364\nID1 ID2 Type 2 0 HYPONYM-OF 2 3 SYNONYM-OF 5 6 SYNONYM-OF",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":42,
+                "paragraph_id":11,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":126,
+                "end_index":390,
+                "paragraph_id":12,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":390,
+                "end_index":393,
+                "paragraph_id":13,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":390,
+                "end_index":479,
+                "paragraph_id":14,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":479,
+                "end_index":860,
+                "paragraph_id":15,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":918,
+                "end_index":1301,
+                "paragraph_id":16,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1301,
+                "end_index":1505,
+                "paragraph_id":17,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"3 Resources for SemEval-2017 Task",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"3.1 Corpus",
+          "text":"A corpus for the task was built from ScienceDirect6 open access publications and was available freely for participants, without the need to sign a copyright agreement. Each data instance consists of one paragraph of text, drawn from a scientific paper.\nPublications were provided in plain text, in addition to xml format, which included the full text of the publication as well as additional metadata. 500 paragraphs from journal articles evenly distributed among the domains Computer Science, Material Sciences and Physics were selected.\n6http://www.sciencedirect.com/\nThe training data part of the corpus consists of 350 documents, 50 for development and 100 for testing. This is similar to the pilot task described in Section 5, for which 144 articles were used for training, 40 for development and for 100 testing.\nWe present statistics about the dataset in Table 1. Notably, the dataset contains many long keyphrases. 22% of all keyphrases in the training set consist of words of 5 or more tokens. This contributes to making the task of keyphrase identification very challenging. However, 93% of those keyphrases are noun phrases7, which is valuable information for simple heuristics to identify keyphrase candidates. Lastly, 31% of keyphrases contained in the training dataset only appear in it once, systems will have do generalise to unseen keyphrases well.",
+          "section_paragraphs":[
+             {
+                "start_index":570,
+                "end_index":820,
+                "paragraph_id":18,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":819,
+                "end_index":1367,
+                "paragraph_id":19,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"3.2 Annotation Process",
+          "text":"Mention-level annotation is very time-consuming, and only a handful of semantic relations such as hypernymy and synonymy can be found in each publication. We therefore only annotate paragraphs of publications likely to contain relations.\nWe originally intended to identify suitable documents by automatically extracting a knowledge graph of relations from a large scientific dataset using Hearst-style patterns (Hearst, 1991; Snow et al., 2005), then using those to find potential relations in a distinct set of documents, similar to the distant supervision (Mintz et al., 2009; Snow et al., 2005) heuristic. Documents containing a high number of such potential relations would then be selected. However, this requires automatically learning to identify keyphrases between which those potential relations hold, and requires relations to appear several times in a dataset for such a knowledge graph to be useful.\nIn the end, this strategy was not feasible due to the difficulty of learning to detect keyphrases automatically and only a small overlap between relations in different documents. Instead, keyphrasedense paragraphs were detected automatically using a coarse unsupervised approach (Mikolov et al., 2013) and those likely to contain relations were selected manually for annotation.\nFor annotation, undergraduate student volunteers studying Computer Science, Material Science or Physics were recruited using UCL\u2019s stu-\n7Parts of speech are determined automatically, using the nltk POS tagger\ndent newsletter, which reaches all of its students. Students were shown example annotations and the annotation guidelines, and if they were still interested in participating in the annotation exercise, afterwards asked to select beforehand how many documents they wanted to annotate. Approximately 50% of students were still interested, having seen annotated documents and read annotation guidelines. They were then given two weeks to annotate documents with the BRAT tool (Stenetorp et al., 2012), which was hosted on an Amazon EC2 instance as a web service. Students were compensated for annotations per document. Annotation time was estimated as approximately 12 minutes per document and annotator, on which basis they were paid roughly 10 GBP per hour. They were only compensated upon completion of all annotations, i.e. compensation was conditioned on annotating all documents. The annotation cost was covered by Elsevier. To develop annotation guidelines, a small pilot annotation exercise on 20 documents was performed with one annotator after which annotation guidelines were refined.8\nWe originally intended for student annotators to triple annotate documents and apply majority voting on the annotations, but due to difficulties with recruiting high-quality annotators we instead opted to double-annotate documents, where the second annotator was an expert annotator. Where annotations disagreed, we opted for the expert\u2019s annotation. Pairwise inter-annotator agreement between the student annotator and the expert annotator measured with Cohen\u2019s kappa is shown in Table 2. The * indicates annotation quality decreased over time, ending with the annotator not completing annotating all documents. To account for this, documents for which no annotations are given are excluded from computing inter-annotator agreement. Out of the annotators completing the annotation exercise, Cohen\u2019s kappa ranges between 0.45 and 0.85, with half of them having a substantial agreement of 0.6 or higher. For future iterations of this task, we recommend to invest significant efforts into recruiting high-quality annotators, perhaps with more pre-annotation quality screening.\n8Annotation guidelines were available to task participants, they can be found here: https://scienceie. github.io/resources.html",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":239,
+                "paragraph_id":20,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":238,
+                "end_index":911,
+                "paragraph_id":21,
+                "references":[
+                   {
+                      "targetRef":"#b14",
+                      "referenceText":"(Hearst, 1991;"
+                   },
+                   {
+                      "targetRef":"#b37",
+                      "referenceText":"Snow et al., 2005)"
+                   },
+                   {
+                      "targetRef":"#b28",
+                      "referenceText":"(Mintz et al., 2009;"
+                   },
+                   {
+                      "targetRef":"#b37",
+                      "referenceText":"Snow et al., 2005)"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":912,
+                "end_index":1292,
+                "paragraph_id":22,
+                "references":[
+                   {
+                      "targetRef":"#b27",
+                      "referenceText":"(Mikolov et al., 2013)"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1291,
+                "end_index":2593,
+                "paragraph_id":23,
+                "references":[
+                   {
+                      "targetRef":"#b38",
+                      "referenceText":"(Stenetorp et al., 2012)"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":2593,
+                "end_index":3599,
+                "paragraph_id":24,
+                "references":[
+                   {
+                      "targetRef":null,
+                      "referenceText":"8"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"1 0.85",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"2 0.66",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"3 0.63",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"4 0.60",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"5 0.50",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"6 0.48",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"7 0.47",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"8 0.45",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"9* 0.25",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"10* 0.22",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"11* 0.20",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"12* 0.15",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"13* 0.06",
+          "text":"",
+          "section_paragraphs":[
+             
+          ]
+       },
+       {
+          "heading":"4 Evaluation",
+          "text":"SemEval 2017 Task 10 offers three different evaluation scenarios:\n1) Only plain text is given (Subtasks A, B, C).\n2) Plain text with manually annotated keyphrase boundaries are given (Subtasks B, C).\n3) Plain text with manually annotated keyphrases and their types are given (Subtask C).\nWe refer to the above scenarios as Scenario 1, Scenario 2, and Scenario 3 respectively.",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":67,
+                "paragraph_id":25,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":66,
+                "end_index":115,
+                "paragraph_id":26,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":114,
+                "end_index":201,
+                "paragraph_id":27,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":200,
+                "end_index":289,
+                "paragraph_id":28,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":288,
+                "end_index":377,
+                "paragraph_id":29,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"4.1 Metrics",
+          "text":"Keyphrase identification (Subtask A) has traditionally been evaluated by calculating the exact matches with the gold standard. There is existing work for capturing semantically similar keyphrases (Zesch and Gurevych, 2009; Kim\net al., 2010a), however since these are captured using relations, similar to the pilot task on keyphrase extraction (Section 5) we evaluate keyphrases, keyphrase types and relations with exact match criteria. The output of systems is matched exactly against the gold standard. The traditionally used metrics of precision, recall and F1-score are computed and the micro-average of those metrics across publications of the three genres are calculated. These metrics are also calculated for Subtasks B and C. In addition, for Subtasks B and C, participants are given the option of using text manually annotated with keyphrase mentions and types.",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":870,
+                "paragraph_id":30,
+                "references":[
+                   {
+                      "targetRef":"#b46",
+                      "referenceText":"(Zesch and Gurevych, 2009;"
+                   },
+                   {
+                      "targetRef":"#b19",
+                      "referenceText":"Kim et al., 2010a)"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"5 Pilot Task",
+          "text":"A pilot task on keyphrase extraction from scientific documents was run by other organisers at SemEval 2010 (Kim et al., 2010b). The task was to extract a list of keyphrases representing key topics from scientific documents, i.e. similar to the first part of our proposed Subtask A, only on type-level. Participants were allowed to submit up to 3 runs and were required to submit a list of 15 keyphrases for each document, ranked by the probability of being reader-assigned phrases. Data was collected from the ACM Digital Library for the research areas Distributed Systems, Information Search and Retrieval, Distributed Artificial Intelligence Multiagent Systems and Social and Behavioral Sciences Economics. Participants were provided with 144 training, 40 development and 100 test articles, each set containing a mix of articles of the different research areas. The data was provided in plain text, converted from pdf with pdftotext. Publications were annotated with keyphrases by 50 Computer Science students and added to author-provided keyphrases required by the journals they were published in. Guidelines were for the keyphrases to exactly appear\nanywhere in the text of the paper, in reality 15% of annotator-provided keyphrases did not, as well as 19% of author-provided keyphrases. The number of author-specified keywords was 4 on average, whereas annotators identified 12 on average. Returned phrases are considered correct if they are exact matches of either the annotator- or authorassigned keyphrases, allowing for minor syntactic variations (A of B \u2192 B A ; A\u2019s B \u2192 A B). Precision, recall and F1 is calculated for the top 5, top 10 and all keywords. 19 systems were submitted to the task, the best one achieving an F1 of 27.5% on the combined author-assigned and annotatorassigned keywords.\nLessons learned from the task were that performance varies depending on how many keywords are to be extracted, the task organisers recommend against fixing a threshold for a number of keyphrases to extract lead. They further recommend a more semantically-motivated task, taking into account synonyms of keyphrases instead of requiring exact matches. Both of those recommendations will be taken into account for future task design. To fulfill the latter, we will ask annotator to assign types to the identified keywords (process, task, material) and identify semantic relations between them (hypernym, synonym).",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":1806,
+                "paragraph_id":31,
+                "references":[
+                   {
+                      "targetRef":null,
+                      "referenceText":"(A of B \u2192 B A ; A's B \u2192 A B)"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1806,
+                "end_index":2418,
+                "paragraph_id":32,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"6 Existing Resources",
+          "text":"As part of the FUSE project with IARPA, we created a small annotated corpus of 100 noun phrases generated from the titles and abstracts derived from the Web Of Science corpora9 of the domains Physics, Computer Science, Chemistry and Computer Science. These corpora cannot be distributed publicly and were made available by the IARPA funding agency. Annotation was performed by 3 annotators using 14 fine-grained types, including PROCESS.\nWe measured inter-annotator agreement among the three annotators for the 14 categories using Fleiss\u2019 Kappa. The k value was found to be 0.28 which implies that there was fair agreement between them, however distinguishing between the fine-grained types added significantly to the annotation time. Therefore we only use three main types for the SemEval 2017 Task 10.\n9http://thomsonreuters. com/en/products-services/ scholarly-scientific-research/ scholarly-search-and-discovery/ web-of-science.html\nThere are some existing keyphrase extraction corpora, however, they are not similar enough to the proposed task to justify reuse. Below is a description of existing corpora.\nThe SemEval 2010 Keyphrase Extraction corpus (Kim et al., 2010b)10 consists of a handful of document-level keyphrases per article. In contrast to the task proposed, the keyphrases are annotated on type-level and not further classified as process, task or material and semantic relations are not annotated. Further, the domains considered are different and mostly sub-domains of Computer Science.\nThe corpus released by Tateisi et al. (2014)11 contains sentence-level fine-grained semantic annotations for 230 publication abstracts in Japanese and 400 in English. In contrast to what we propose, the annotations are more fine-grained and annotations are only available for abstracts.\nGupta and Manning (2011) studied keyphrase extraction from ACL Anthology articles, applying a pattern-based bootstrapping approach based on 15 016 documents and assigning the types FOCUS, TECHNIQUE and DOMAIN. Performance was evaluated on 30 manually annotated documents. Although the latter corpus is related to what we propose, manual annotation is only available for a small number of documents and only for the Natural Language Processing domain.\nThe ACL RD-TEC 2.0 dataset (QasemiZadeh and Schumann, 2016) consists of 300 ACL Anthology abstracts annotated on mention-level with seven different types of keyphrases. Unlike our dataset, it does not contain relation annotations. Note that this corpus was created at the same time as the one SemEval 2017 Task 10 dataset and thus we did not have the chance to build on it. A more in-depth comparison between the two datasets as well as keyphrase identification and classification methods evaluated on them can be found in Augenstein and S\u00f8gaard (2017).",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":438,
+                "paragraph_id":33,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":438,
+                "end_index":440,
+                "paragraph_id":34,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":438,
+                "end_index":804,
+                "paragraph_id":35,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":804,
+                "end_index":1111,
+                "paragraph_id":36,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1111,
+                "end_index":1113,
+                "paragraph_id":37,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1111,
+                "end_index":1507,
+                "paragraph_id":38,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1507,
+                "end_index":1509,
+                "paragraph_id":39,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1794,
+                "end_index":2245,
+                "paragraph_id":40,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":2245,
+                "end_index":2247,
+                "paragraph_id":41,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":2245,
+                "end_index":2800,
+                "paragraph_id":42,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"6.1 Baselines",
+          "text":"We frame the task as a sequence-to-sequence prediction task. We preprocess the files by splitting documents into sentences and tokenising them with nltk, then aligning span annotations from .ann files to tokens. Each sentence is regarded as one sequence. We then split the task into the\n10https://github.com/snkim/ AutomaticKeyphraseExtraction\n11https://github.com/mynlp/ranis\nthree subtasks, keyphrase boundary identification, keyphrase classification and relation classification and add three output layers. We predict the following types, for the three subtasks respectively: Subtask A: tA = O,B, I for tokens being outside, at the beginning, or inside a keyphrase Subtask B: tB = O,M,P, T for tokens being outside a keyphrase, or being part of a material, process or task Subtask C: tC = O,S,H for Synonym-of and Hyponym-of relations. For Subtask A and B, we predict one output label per input token. For Subtask C we predict a vector for each token, that encodes what the relationship between that token and every other token in the sequence is for the first token in each keyphrase. After predictions for tokens are obtained, these are converted back to spans and relations between them in a postprocessing step.\nWe report results for two simple models: one to estimate the upper bound, that converts .ann files into instances, as described above, then converts them back into .ann files. Next, to estimate a lower bound, a random baseline, that for each token assigns a random label for each of the subtasks.\nThe upper bound span-token-span round-trip conversion performance, an F1 of 0.84, shows that we already lose a significant amount of performance due to sentence splitting and tokenisation alone. The random baseline further shows hard especially the keyphrase boundary identification task is and as a result the overall task, since the subtasks depend on one another. For Subtask A, a random baseline achieves an F1 of 0.03. The overall tasks gets easier if keyphrase boundaries are given, resulting in F1 of 0.23 for keyphrase classification, and if keyphrase types are given, an F1 of 0.04 are achieved with the random baseline for Subtask C.",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":1138,
+                "paragraph_id":43,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1219,
+                "end_index":1517,
+                "paragraph_id":44,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1516,
+                "end_index":2161,
+                "paragraph_id":45,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"7 Summary of Participating Systems",
+          "text":"In this section, we summarise the outcome of the competition. For more details please refer to the respective system description papers and the task website https://scienceie. github.io/.\nWe had three subtasks, described in Sec 2, which were grouped together in three evaluation scenarios, described in Sec 4. The competition was hosted in CodaLab12 in two phases: (i) de-\n12https://competitions.codalab.org/\nvelopment phase and (ii) testing phase. Fifty four teams participated in the development phase, and out of them twenty six teams participated in the final competition. One of the major success of the competition is due to such wide participation and application of various different techniques starting from neural networks, supervised classification with careful feature engineering to simple rule based methods. We present a summary of approaches used by task participants below.",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":189,
+                "paragraph_id":46,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":188,
+                "end_index":856,
+                "paragraph_id":47,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"7.1 Evaluation Scenario 1",
+          "text":"In this scenario teams need to solve all three subtasks A, B, and C; where no annotation information was given. Some teams participated only in Subtask A, or B; but the overall micro F1 performance across subtasks is considered for the ranking of the teams. Seventeen teams participated in this scenario. The F1 scores range from 0.04 to 0.43. Complete results are given in Table 3.\nVarious different types of methods have been applied by different teams with various levels of supervision. The best three teams TTI COIN, TIAL UW, and s2 end2end have used recurrent neural network (RNN) based approaches to obtain F1 scores of 0.38, 0.42 and 0.43 respectively. However, TIAL UW, and s2 end2end, by using a conditional random fields (CRF) layer on top of RNNs achieve a higher F1 in Subtask A compared to TTI COIN.\nThe fourth team PKU ICL with an F1 of 0.37 found classification models based on random forest and support vector machines (SVM) useful with carefully engineered feature such as TF-IDF over a very large external corpus, IDF weighted word-embeddings etc, along with an existing taxonomy. SciX on the other hand used noun phrase chunking and trained an SVM classifier on provided training data to classify phrases, and used a CRF to predict labels of the phrases. CRF based methods with parts-of-speech (POS) tagging and orthographic features such as presence of symbols and capitalisation have been tried by several teams (NTNU, SZTE-NLP, WING-NUS) and they leading to a reasonable performance (F1: 0.23, 0.26, and 0.27, respectively).\nNoun phrase extraction with length constraint by HCC-NLP, and using a global list of keyphrases by NITK IT PG are found not to perform satisfactorily (F1: 0.16 and 0.14 respectively). The\ncompetitions/15898\nformer is surprising, as keyphrases are with an overwhelming majority noun phrases, the latter not as much, many keyphrases only appear once in the dataset (see Table 1). GMBUAP further tried using empirical rules obtained by observing the training data for Subtask A, and a Naive Bayes classifier trained on provided training data for Subtask B. Such simple methods on their own prove not to be accurate enough. Attempts of such give us additional insight about the hardness of the problem and applicability of simple methods to the task.",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":384,
+                "paragraph_id":48,
+                "references":[
+                   {
+                      "targetRef":"#tab_5",
+                      "referenceText":"Table 3"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":383,
+                "end_index":815,
+                "paragraph_id":49,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":814,
+                "end_index":1549,
+                "paragraph_id":50,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1548,
+                "end_index":1737,
+                "paragraph_id":51,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":0,
+                "end_index":383,
+                "paragraph_id":52,
+                "references":[
+                   {
+                      "targetRef":"#tab_7",
+                      "referenceText":"Table 4"
+                   },
+                   {
+                      "targetRef":null,
+                      "referenceText":"13"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":383,
+                "end_index":814,
+                "paragraph_id":53,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":814,
+                "end_index":991,
+                "paragraph_id":54,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"7.2 Evaluation Scenario 2",
+          "text":"In this scenario teams needed to solve sub-tasks B, and C. Partial annotation was provided to the teams, that is, solution to the Subtask A. Four teams participated in this scenario with F1 cores ranging from 0.43 to 0.64. Please refer to Table 4 for complete result.\nExcept MayoNLP, other three teams participated only in Subtask B. Although ranking is done based on overall performance, but in this scenario\n13After the end of the evaluation period, team UKP/EELECTION discovered those results were based on training on the development set. For training on the training set, their results are: 0.69 F1 overall and 0.72 F1 for Subtask B only\nrankings are consistent in each category. BUAP with the worst F1 score for Subtask B (0.45), is still better than the best team in Scenario 1 s2 end2end for Subtask B (0.44). Partial annotation or accuracy for Subtask A proves to be critical, reinforcing again that identifying keyphrase boundaries is the most difficult part of the shared task.\nUnlike the Scenario 1, in this case the top two teams used classifiers with lexical features (F1: 0.64) as well as neural networks (F1: 0.63). The first team MayoNLP used SVM with rich feature sets like n-grams, lexical features, orthographic features, whereas the second team UKP/EELECTION used used three different neural network approaches and subsequently combined them via majority voting. Both these methods perform quite similarly. However, a CRF based approach and an SVM with simpler feature sets attempted by the two teams LABDA and BUAP are found to be less effective in this scenario.\nMayoNLP applied a simple rule based method for synonym-of relation extraction, and Hearst patterns for hyponym-of relation detection. The rules for synonym-of detection is based on presence of phrases such as in terms of, equivalently,\nwhich are called etc in the text between two keyphrases. Interestingly, the RNN based approach of s2 end2end in Scenario 1 performs better than MayoNLP without using partial annotation of Subtask A.",
+          "section_paragraphs":[
+             {
+                "start_index":989,
+                "end_index":1587,
+                "paragraph_id":55,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1586,
+                "end_index":1823,
+                "paragraph_id":56,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"7.3 Evaluation Scenario 3",
+          "text":"In this scenario, teams need to solve only Subtask C. Partial annotations were provided to the teams for Subtask B and C. Five teams participated in this scenario, and F1 scores ranged from 0.1 to 0.64. Please refer to Table 5 for complete result.\nNeural network (NN) based models are found to perform better than other methods in this scenario. The best method by MIT uses a convolutional NN (CNN). The other method uses two phases of NN and found to be reasonably effective (F1: 0.54).\nOn the other hand, application of supervised classification with five different classifiers (SVM, decision tree, random forest, multinomial naive\n15After the end of the evaluation period, team TTI COIN rel discovered a bug in preprocessing, leading to low results. Their overall result after having corrected for that error is a Macro F1 of 0.48.\nBayes and k-nearest neighbour) using three different feature selection techniques (chi square, decision tree, and recursive feature elimination) found close accuracy (F1: 0.5) with the top performing ones.\nLaBDA also use a CNN based method. However, the rule based post-processing and argument ordering strategy applied by MIT seemed to give additional advantage as also observed by them.\nHowever most of the teams in this scenario outperform, all teams from other scenarios (who did not have access to partial information for Subtask B, and C) in relation prediction. This also asserts the significance of accuracy on Subtask A, and B in order to perform accurately on Subtask C.",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":248,
+                "paragraph_id":57,
+                "references":[
+                   {
+                      "targetRef":"#tab_8",
+                      "referenceText":"Table 5"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":248,
+                "end_index":489,
+                "paragraph_id":58,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":488,
+                "end_index":835,
+                "paragraph_id":59,
+                "references":[
+                   {
+                      "targetRef":null,
+                      "referenceText":"15"
+                   }
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":835,
+                "end_index":837,
+                "paragraph_id":60,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":835,
+                "end_index":1042,
+                "paragraph_id":61,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1041,
+                "end_index":1225,
+                "paragraph_id":62,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":1224,
+                "end_index":1517,
+                "paragraph_id":63,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"8 Conclusion",
+          "text":"In this paper, we present the setup and discuss participating systems of SemEval 2017 Task 10 on identifying and classifying keyphrases and relations between them from scientific articles, to which 26 systems were submitted. Successful systems vary in their approaches. Most of them use RNNs, often in combination with CRFs as well as CNNs, however the system performing best for evaluation scenario 1 uses an SVM with a well-engineered lexical feature set. Identifying keyphrases is the most challenging subtask, since the dataset contains many long and infrequent keyphrases, and systems relying on remembering them do not perform well.",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":640,
+                "paragraph_id":64,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       },
+       {
+          "heading":"Acknowledgments",
+          "text":"We would like to thank Elsevier for supporting this shared task. Special thanks go to Ronald Daniel Jr. for his feedback on the task setup and Pontus Stenetorp for his advice on brat and shared task organisation.",
+          "section_paragraphs":[
+             {
+                "start_index":0,
+                "end_index":214,
+                "paragraph_id":65,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             },
+             {
+                "start_index":0,
+                "end_index":214,
+                "paragraph_id":66,
+                "references":[
+                   
+                ],
+                "formulas":[
+                   
+                ]
+             }
+          ]
+       }
+    ],
+    "year":2017,
+    "references":[
+       {
+          "title":"The AI2 system at SemEval-2017 Task 10 (ScienceIE): semisupervised end-to-end entity and relation extraction",
+          "authors":[
+             "Waleed Ammar",
+             "Matthew Peters",
+             "Chandra Bhagavatula",
+             "Russell Power."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b1"
+       },
+       {
+          "title":"MultiTask Learning of Keyphrase Boundary Classification",
+          "authors":[
+             "Isabelle Augenstein",
+             "Anders S\u00f8gaard."
+          ],
+          "venue":"Proceedings of ACL.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of ACL",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b2"
+       },
+       {
+          "title":"Extracting Relations between NonStandard Entities using Distant Supervision and Imitation Learning",
+          "authors":[
+             "Isabelle Augenstein",
+             "Andreas Vlachos",
+             "Diana Maynard."
+          ],
+          "venue":"Proceedings of EMNLP.",
+          "year":2015,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of EMNLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2015",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b3"
+       },
+       {
+          "title":"NTNU-2 at ScienceIE: Identifying Synonym and Hyponym Relations among Keyphrases in Scientific Documents",
+          "authors":[
+             "Biswanath Barik",
+             "Erwin Marsi."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b4"
+       },
+       {
+          "title":"SZTE-NLP at SemEval-2017 Task 10: A High Precision Sequence Model for Keyphrase Extraction Utilizing Sparse Coding for Feature Generation",
+          "authors":[
+             "G\u00e1bor Berend."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b5"
+       },
+       {
+          "title":"Corpus for Coreference Resolution on Scientific Papers",
+          "authors":[
+             "Panot Chaimongkol",
+             "Akiko Aizawa",
+             "Yuka Tateisi."
+          ],
+          "venue":"Proceedings of LREC.",
+          "year":2014,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of LREC",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2014",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b6"
+       },
+       {
+          "title":"EELECTION at SemEval-2017 Task 10: Ensemble of nEural Learners for kEyphrase ClassificaTION",
+          "authors":[
+             "Steffen Eger",
+             "Erik-L\u00e2n Do Dinh",
+             "Ilia Kuznetsov",
+             "Masoud Kiaeeha",
+             "Iryna Gurevych."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b7"
+       },
+       {
+          "title":"GMBUAP at SemEval-2017 Task 10: A First Approach Based Empirical Rules and n-grams for the Extraction and Classification of Keyphrases",
+          "authors":[
+             "Gerardo Flores",
+             "Mireya Tovar",
+             "Jos\u00e9 A. ReyesOrtiz."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b8"
+       },
+       {
+          "title":"EMNLP versus ACL: Analyzing NLP research over time",
+          "authors":[
+             "Sujatha Das Gollapalli",
+             "Xiaoli Li."
+          ],
+          "venue":"Proceedings of EMNLP.",
+          "year":2015
+       },
+       {
+          "title":"Posterior regularization for Joint Modelling of Multiple Structured Prediction Tasks with Soft Constraints",
+          "authors":[
+             "Kartik Goyal",
+             "Chris Dyer."
+          ],
+          "venue":"Proceedings of EMNLP.",
+          "year":2016,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of EMNLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2016",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b10"
+       },
+       {
+          "title":"Unsupervised Declarative Knowledge Induction for Constraint-Based Learning of Information Structure in Scientific Documents",
+          "authors":[
+             "Yufan Guo",
+             "Roi Reichart",
+             "Anna Korhonen."
+          ],
+          "venue":"Transactions of the Association for Computational Linguistics 3:131\u2013143.",
+          "year":2015,
+          "conferenceDetails":{
+             "conferenceName":"Transactions of the Association for Computational Linguistics",
+             "bibScopeDetails":{
+                "volume":"3",
+                "page":"",
+                "fromPage":"131",
+                "toPage":"143"
+             },
+             "referencePublishDate":"2015",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b11"
+       },
+       {
+          "title":"Analyzing the Dynamics of Research by Extracting Key Aspects of Scientific Papers",
+          "authors":[
+             "Sonal Gupta",
+             "Christopher Manning."
+          ],
+          "venue":"Proceedings of IJCNLP.",
+          "year":2011,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of IJC-NLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2011",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b12"
+       },
+       {
+          "title":"Automatic Keyphrase Extraction: A Survey of the State of the Art",
+          "authors":[
+             "Kazi Saidul Hasan",
+             "Vincent Ng."
+          ],
+          "venue":"Proceedings of ACL.",
+          "year":2014,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of ACL",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2014",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b13"
+       },
+       {
+          "title":"Noun Homograph Disambiguation Using Local Context in Large Text Corpora",
+          "authors":[
+             "Marti Hearst."
+          ],
+          "venue":"Using Corpora pages 185\u2013188.",
+          "year":1991
+       },
+       {
+          "title":"LIPN at SemEval-2017 Task 10: Selecting Candidate Phrases with Part-of-Speech Tag Sequences from the training data",
+          "authors":[
+             "Simon David Hernandez",
+             "Davide Buscaldi",
+             "Thierry Charnois."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b15"
+       },
+       {
+          "title":"Automatic Extraction of Citation Contexts for Research Paper Summarization: A Coreference-chain based Approach",
+          "authors":[
+             "Dain Kaplan",
+             "Ryu Iida",
+             "Takenobu Tokunaga."
+          ],
+          "venue":"Proceedings of NLPIR4DL workshop at ACL-IJCNLP.",
+          "year":2009,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of NLPIR4DL workshop at ACL-IJCNLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2009",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b16"
+       },
+       {
+          "title":"Joint Entity and Relation Extraction using Card-Pyramid Parsing",
+          "authors":[
+             "Rohit J Kate",
+             "Raymond J Mooney."
+          ],
+          "venue":"Proceedings of CoNLL.",
+          "year":2010,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of CoNLL",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2010",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b17"
+       },
+       {
+          "title":"Know-Center at SemEval-2017 Task 10: CODE annotator",
+          "authors":[
+             "Roman Kern",
+             "Stefan Falk",
+             "Andi Rexha."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b18"
+       },
+       {
+          "title":"Evaluating n-gram based evaluation metrics for automatic keyphrase extraction",
+          "authors":[
+             "Su Nam Kim",
+             "Timothy Baldwin",
+             "Min-Yen Kan."
+          ],
+          "venue":"Proceedings of Coling.",
+          "year":2010,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of the 5th International Workshop on Semantic Evaluation. Association for Computational Linguistics",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":"",
+                "fromPage":"21",
+                "toPage":"26"
+             },
+             "referencePublishDate":"2010",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b20"
+       },
+       {
+          "title":"SemEval-2010 Task 5 : Automatic Keyphrase Extraction from Scientific Articles",
+          "authors":[
+             "Su Nam Kim",
+             "Olena Medelyan",
+             "Min-Yen Kan",
+             "Timothy Baldwin."
+          ],
+          "venue":"Proceedings of the 5th International Workshop on Semantic Evaluation. Association for Com-",
+          "year":2010
+       },
+       {
+          "title":"MIT at SemEval-2017 Task 10: Relation Extraction with Convolutional Neural Networks",
+          "authors":[
+             "Ji Young Lee",
+             "Franck Dernoncourt",
+             "Peter Szolovits."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b21"
+       },
+       {
+          "title":"The NTNU System at SemEval-2017 Task 10: Extracting Keyphrases and Relations from Scientific Publications Using Multiple Conditional Random Fields",
+          "authors":[
+             "Lung-Hao Lee",
+             "Kuei-Ching Lee",
+             "Yuen-Hsien Tseng."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b22"
+       },
+       {
+          "title":"MayoNLP at SemEval 2017 Task 10: Word Embedding Distance Pattern for Keyphrase Classification in Scientific Publications",
+          "authors":[
+             "Sijia Liu",
+             "Shen Feichen",
+             "Vipin Chaudhary",
+             "Hongfang Liu."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"MayoNLP at SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b23"
+       },
+       {
+          "title":"Extraction and generalisation of variables from scientific publications",
+          "authors":[
+             "Erwin Marsi",
+             "Pinar \u00d6zt\u00fcrk."
+          ],
+          "venue":"Proceedings of EMNLP.",
+          "year":2015,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of EMNLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2015",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b25"
+       },
+       {
+          "title":"NTNU1@ScienceIE at SemEval-2017 Task 10: Identifying and Labelling Keyphrases with Conditional Random Fields",
+          "authors":[
+             "Erwin Marsi",
+             "Utpal Kumar Sikdar",
+             "Cristina Marco",
+             "Biswanath Barik",
+             "Rune S\u00e6tre."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b26"
+       },
+       {
+          "title":"Distributed Representations of Words and Phrases and their Compositionality",
+          "authors":[
+             "Tomas Mikolov",
+             "Ilya Sutskever",
+             "Kai Chen",
+             "Greg S Corrado",
+             "Jeff Dean."
+          ],
+          "venue":"Proceedings of NIPS.",
+          "year":2013,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of NIPS",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2013",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b27"
+       },
+       {
+          "title":"Distant supervision for relation extraction without labeled data",
+          "authors":[
+             "M. Mintz",
+             "S. Bills",
+             "R. Snow",
+             "D. Jurafsky."
+          ],
+          "venue":"Proceedings of ACL-IJCNLP.",
+          "year":2009,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of ACL-IJCNLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2009",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b28"
+       },
+       {
+          "title":"Unsupervised learning of rhetorical structure with untopic models",
+          "authors":[
+             "Diarmuid \u00d3 S\u00e9aghdha",
+             "Simone Teufel."
+          ],
+          "venue":"Proceedings of Coling.",
+          "year":2014,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of Coling",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2014",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b29"
+       },
+       {
+          "title":"Information extraction from research papers using conditional random fields",
+          "authors":[
+             "Fuchun Peng",
+             "Andrew McCallum."
+          ],
+          "venue":"Information Processing and Management 42(4):963\u2013979.",
+          "year":2006,
+          "conferenceDetails":{
+             "conferenceName":"Information Processing and Management",
+             "bibScopeDetails":{
+                "volume":"42",
+                "page":"",
+                "issue":"4",
+                "fromPage":"963",
+                "toPage":"979"
+             },
+             "referencePublishDate":"2006",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b30"
+       },
+       {
+          "title":"WING-NUS at SemEval-2017 Task 10: Keyphrase Extraction and Classification as Joint Sequence Labeling",
+          "authors":[
+             "Animesh Prasad",
+             "Min-Yen Kan."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b31"
+       },
+       {
+          "title":"The ACL RD-TEC 2.0: A Language Resource for Evaluating Term Extraction and Entity Recognition Methods",
+          "authors":[
+             "Behrang QasemiZadeh",
+             "Anne-Kathrin Schumann"
+          ],
+          "venue":"In Proceedings of LREC",
+          "year":2016,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of LREC",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2016",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b32"
+       },
+       {
+          "title":"Rediscovering ACL Discoveries Through the Lens of ACL Anthology Network Citing Sentences",
+          "authors":[
+             "Dragomir Radev",
+             "Amjad Abu-Jbara."
+          ],
+          "venue":"Proceedings of the ACL-2012 Special Workshop on Rediscovering 50 Years of Discoveries.",
+          "year":2012,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of the ACL-2012 Special Workshop on Rediscovering 50 Years of Discoveries",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2012",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b33"
+       },
+       {
+          "title":"LABDA at SemEval-2017 Task 10: Extracting Keyphrases from Scientific Publications by combining the BANNER tool and the UMLS Semantic Network",
+          "authors":[
+             "Isabel Segura-Bedmar",
+             "Crist\u00f3bal Col\u00f3n-Ruiz",
+             "Paloma Mart\u0131\u0301nez"
+          ],
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of Se-mEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b34"
+       },
+       {
+          "title":"A Utility Model of Authors in the Scientific Community",
+          "authors":[
+             "Yanchuan Sim",
+             "Bryan Routledge",
+             "Noah A. Smith."
+          ],
+          "venue":"Proceedings of EMNLP.",
+          "year":2015,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of EMNLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2015",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b35"
+       },
+       {
+          "title":"Joint Inference of Entities, Relations, and Coreference",
+          "authors":[
+             "Sameer Singh",
+             "Sebastian Riedel",
+             "Brian Martin",
+             "Jiaping Zheng",
+             "Andrew McCallum."
+          ],
+          "venue":"Proceedings of the 2013 Workshop on Automated Knowledge Base Construction (AKBC).",
+          "year":2013,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of the 2013 Workshop on Automated Knowledge Base Construction (AKBC)",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2013",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b36"
+       },
+       {
+          "title":"Learning syntactic patterns for automatic hypernym discovery",
+          "authors":[
+             "R. Snow",
+             "D. Jurafsky",
+             "A.Y. Ng."
+          ],
+          "venue":"Advances in Neural Information Processing Systems 17:1297\u20131304.",
+          "year":2005,
+          "conferenceDetails":{
+             "conferenceName":"Advances in Neural Information Processing Systems",
+             "bibScopeDetails":{
+                "volume":"17",
+                "page":"",
+                "fromPage":"1297",
+                "toPage":"1304"
+             },
+             "referencePublishDate":"2005",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b37"
+       },
+       {
+          "title":"BRAT: a Web-based Tool for NLPAssisted Text Annotation",
+          "authors":[
+             "Pontus Stenetorp",
+             "Sampo Pyysalo",
+             "Goran Topi\u0107",
+             "Tomoko Ohta",
+             "Sophia Ananiadou",
+             "Jun\u2019ichi Tsujii"
+          ],
+          "venue":"In Proceedings of EACL System Demonstrations",
+          "year":2012,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of EACL System Demonstrations",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2012",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b38"
+       },
+       {
+          "title":"Supervised Keyphrase Extraction as Positive Unlabeled Learning",
+          "authors":[
+             "Lucas Sterckx",
+             "Cornelia Caragea",
+             "Thomas Demeester",
+             "Chris Develder."
+          ],
+          "venue":"Proceedings of EMNLP.",
+          "year":2016,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of EMNLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2016",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b39"
+       },
+       {
+          "title":"LaBDA Team at SemEval2017 Task C: Relation Classification between keyphrases via Convolutional Neural Network",
+          "authors":[
+             "V\u0131\u0301ctor Su\u00e1rez-Paniagua",
+             "Isabel Segura-Bedmar",
+             "Paloma"
+          ],
+          "venue":"Mart\u0131\u0301nez",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b40"
+       },
+       {
+          "title":"Annotation of Computer Science Papers for Semantic Relation Extraction",
+          "authors":[
+             "Yuka Tateisi",
+             "Yo Shidahara",
+             "Yusuke Miyao",
+             "Akiko Aizawa."
+          ],
+          "venue":"Nicoletta Calzolari, Khalid Choukri, Thierry Declerck, Hrafn Loftsson, Bente Maegaard, Joseph Mariani, Asuncin",
+          "year":2014,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of LREC",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2014",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b41"
+       },
+       {
+          "title":"Argumentative Zoning for Improved Citation Indexing",
+          "authors":[
+             "Simone Teufel."
+          ],
+          "venue":"James G. Shanahan, Yan Qu, and Janyce Wiebe, editors, Computing Attitude and Affect in Text, Springer, volume 20 of The Information Retrieval Series, pages 159\u2013169.",
+          "year":2006,
+          "conferenceDetails":{
+             "conferenceName":"Computing Attitude and Affect in Text",
+             "bibScopeDetails":{
+                "volume":"20",
+                "page":"",
+                "fromPage":"159",
+                "toPage":"169"
+             },
+             "referencePublishDate":"2006",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b42"
+       },
+       {
+          "title":"TTI-COIN at SemEval-2017 Task 10: Investigating Embeddings for End-to-End Relation Extraction from Scientific Papers",
+          "authors":[
+             "Tomoki Tsujimura",
+             "Makoto Miwa",
+             "Yutaka Sasaki."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of Se-mEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b43"
+       },
+       {
+          "title":"PKU ICL at SemEval-2017 Task 10: Keyphrase Extraction with Model Ensemble and External Knowledge",
+          "authors":[
+             "Liang Wang",
+             "Sujian Li."
+          ],
+          "venue":"Proceedings of SemEval.",
+          "year":2017,
+          "conferenceDetails":{
+             "conferenceName":"PKU ICL at",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2017",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b44"
+       },
+       {
+          "title":"Approximate Matching for Evaluating Keyphrase Extraction",
+          "authors":[
+             "Torsten Zesch",
+             "Iryna Gurevych."
+          ],
+          "venue":"Proceedings of RANLP.",
+          "year":2009,
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of RANLP",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":"2009",
+             "referencePublishStatus":"published"
+          },
+          "refId":"b46"
+       },
+       {
+          "refId":"b24",
+          "title":"Word Embedding Distance Pattern for Keyphrase Classification in Scientific Publications",
+          "authors":[
+             
+          ],
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":"10",
+                "page":null
+             },
+             "referencePublishDate":null,
+             "referencePublishStatus":null
+          },
+          "venue":"Proceedings of SemEval",
+          "year":null
+       },
+       {
+          "refId":"b45",
+          "title":"Keyphrase Extraction with Model Ensemble and External Knowledge",
+          "authors":[
+             
+          ],
+          "conferenceDetails":{
+             "conferenceName":"Proceedings of SemEval",
+             "bibScopeDetails":{
+                "volume":null,
+                "page":null
+             },
+             "referencePublishDate":null,
+             "referencePublishStatus":null
+          },
+          "venue":"Proceedings of SemEval",
+          "year":null
+       }
+    ],
+    "id":"SP:53fc0f72bb942611e095d1361864b1c74163618a",
+    "authors":[
+       {
+          "name":"Isabelle Augenstein",
+          "affiliations":[
+             
+          ]
+       },
+       {
+          "name":"Mrinal Das",
+          "affiliations":[
+             
+          ]
+       },
+       {
+          "name":"Sebastian Riedel",
+          "affiliations":[
+             
+          ]
+       },
+       {
+          "name":"Lakshmi Vikraman",
+          "affiliations":[
+             
+          ]
+       },
+       {
+          "name":"Andrew McCallum",
+          "affiliations":[
+             
+          ]
+       }
+    ],
+    "abstractText":"We describe the SemEval task of extracting keyphrases and relations between them from scientific documents, which is crucial for understanding which publications describe which processes, tasks and materials. Although this was a new task, we had a total of 26 submissions across 3 evaluation scenarios. We expect the task and the findings reported in this paper to be relevant for researchers working on understanding scientific content, as well as the broader knowledge base population and information extraction communities.",
+    "title":"SemEval 2017 Task 10: ScienceIE - Extracting Keyphrases and Relations from Scientific Publications",
+    "keywords":[
+       
+    ],
+    "is_survey":false,
+    "is_review":false
+ }
