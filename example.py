@@ -1,13 +1,13 @@
 import json
-from document import *
+from document import Document
 
 with open('./input.json') as f:
     data = json.load(f)
 
 p = Document(data)
 sentences = p.get_top_k_sentence(
-    k=5,
-    max_sentence_distance=10
+    k=2,
+    D=10
 )
 
 for idx, (weight, sentence) in sentences:

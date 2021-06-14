@@ -176,87 +176,74 @@ class Document:
                             word_U = upperCase(word)
                             weights.append(word_U * std + self._weights[index][word_s])
                     if len(weights) == 0: continue
-                    weights = np.array(weights)
-                    avg = np.mean(weights[weights > np.mean(weights) + 1 * np.std(weights)])
+                    # weights = np.array(weights)
+                    avg = np.mean(weights)
                     if not np.isnan(avg):
                         self._sentence_weights[sentence_i] = (avg, sentence)
                     sentence_i += 1
 
-    def __get_clubs(self, max_sentence_distance: int):
-        """
-        We have weights for some sentences, here we sequentially club the sentences.
-        There are some sentences missing when we give weights to sentences, because they aren't much relevant.
-        And we don't want sentences to be farther then each other.
-        consecutive sentences must have some maximum distance (max_sentence_distance).
+    @staticmethod
+    def __get_all_k_sentences__(indices, length, D, sentences_indices):
+        k = len(indices)
 
-        So here we club the consecutive sentences while maintaining some maximum distance.
+        for kth in range(k - 1, -1, -1):
+            if indices[kth] + 1 >= length:
+                continue
+            if ((kth - 1 >= 0 and indices[kth - 1] >= indices[kth] + 1) or
+                    (kth + 1 < k and indices[kth] + 1 >= indices[kth + 1])):
+                continue
+            if kth - 1 >= 0 and indices[kth] + 1 - indices[kth - 1] > D:
+                continue
 
-        Time Complexity: O(n_sentences)
-        Space Complexity: O(n_sentences)
-        Where n_sentences is total number of sentences in whole corpus (Document)
-        (and n_sentences is O(N) where N is the length of the corpus (Document))
+            indices[kth] += 1
 
-        :param max_sentence_distance: (maximum distance between two consecutive sentences)
-        :return:
-        """
+            if tuple(indices) not in sentences_indices:
+                Document.__get_all_k_sentences__(indices, length, D, sentences_indices)
+                sentences_indices.add(tuple(indices))
 
-        sentence_indices = list(self._sentence_weights.keys())
-        counter = 1
-        clubs = []
-        ith_club = [sentence_indices[0]]
-        while counter < len(sentence_indices):
-            if sentence_indices[counter] - ith_club[-1] <= max_sentence_distance:
-                ith_club.append(sentence_indices[counter])
-            else:
-                clubs.append(ith_club)
-                ith_club = [sentence_indices[counter + 1]]
-                counter += 1
-            counter += 1
-        if len(ith_club) != 0: clubs.append(ith_club)
-        return clubs
+            indices[kth] -= 1
 
-    def __get_best_club(self, clubs, k):
-        """
-        Once we get the clubs from __get_clubs method we can move further and find the
-        best k consecutive sentences (while maintaining some maximum distance).
+    @staticmethod
+    def __get_best_sentence__(indices, sentencesD):
+        max_weight, best_set = 0, []
+        for idx in indices:
+            weight = sum([sentencesD[i][0] for i in idx])
+            if weight > max_weight:
+                max_weight = weight
+                best_set = idx
+        return best_set
 
-        Time Complexity: O(n_clubs)
-        Space Complexity: O(n_clubs)
-        Where n_clubs is total number of clubs we got through __get_clubs method
-            And n_clubs is O(n_sentences) and as we saw in __get_clubs method
-            n_sentences is O(N) where N is the length of the corpus (Document)
-
-        :param clubs:
-        :param k:
-        :return:
-        """
-
-        top_k_sentences_indices = None
-        max_weight = 0
-        for club in clubs:
-            if len(club) < k: continue
-            for i in range(0, len(club)):
-                part = club[i: i + k]
-                if len(part) < k: break
-                weight = sum([self._sentence_weights[j][0] for j in part])
-                if weight > max_weight:
-                    max_weight = weight
-                    top_k_sentences_indices = part
-        return top_k_sentences_indices
-
-    def get_top_k_sentence(self, k: int, max_sentence_distance: int):
+    def get_top_k_sentence(self, k: int, D: int):
         """
         This method gives us top 'k' sentence from the Document
-        while maintaining the maximum distance (max_sentence_distance)
+        while maintaining the maximum distance (D)
 
         Because we don't want sentences to be farther then each other,
-        consecutive sentences must have some maximum distance (max_sentence_distance).
+        consecutive sentences must have some maximum distance (D).
 
         :param k: (top k sentences)
-        :param max_sentence_distance: (maximum distance between two consecutive sentences)
+        :param D: (maximum distance between two consecutive sentences)
         :return:
         """
 
-        clubs = self.__get_clubs(max_sentence_distance)
-        top_k_sentences_indices = self.__get_best_club(clubs, k)
+        sentences_indices = set()
+        initial_idx = [_ for _ in range(k)]
+        sentences_indices.add(tuple(initial_idx))
+        print(
+            initial_idx,
+            len(self._sentence_weights),
+            D
+        )
+
+        self.__get_all_k_sentences__(
+            [_ for _ in range(k)],
+            len(self._sentence_weights),
+            D,
+            sentences_indices
+        )
+
+        top_k_sentences_indices = self.__get_best_sentence__(
+            sentences_indices,
+            self._sentence_weights
+        )
         return [(idx, self._sentence_weights[idx]) for idx in top_k_sentences_indices]
