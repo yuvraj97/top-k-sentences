@@ -164,7 +164,7 @@ class Document:
         """
 
         sentence_i = 0
-        std = np.std([self._idf[w] for w in self._idf])
+        STD = np.std([self._idf[w] for w in self._idf])
         for index, (section, tf) in enumerate(self._sections):
             for paragraph in section.split("\n"):
                 for (start_index, end_index) in getSentencesIndices(paragraph):
@@ -174,44 +174,59 @@ class Document:
                         word_s = self._stem(word.lower())
                         if word_s in self._weights[index]:
                             word_U = upperCase(word)
-                            weights.append(word_U * std + self._weights[index][word_s])
+                            weights.append(word_U * STD + self._weights[index][word_s])
                     if len(weights) == 0: continue
-                    # weights = np.array(weights)
-                    avg = np.mean(weights)
+
+                    weights = np.array(weights)
+                    mean, std = weights.mean(), weights.std()
+                    upper_mean = np.mean(weights[weights >= mean + std]) * 2
+                    if np.isnan(upper_mean): upper_mean = 0
+                    lower_mean = np.mean(weights[weights < mean + std])
+                    if np.isnan(lower_mean): lower_mean = 0
+
+                    avg = (upper_mean + lower_mean)/2
+
                     if not np.isnan(avg):
                         self._sentence_weights[sentence_i] = (avg, sentence)
                     sentence_i += 1
 
     @staticmethod
-    def __get_all_k_sentences__(indices, length, D, sentences_indices):
-        k = len(indices)
+    def __get_max_k_weights__(k, D, weights):
+        dp, records = [], defaultdict(lambda: {})
+        for ith_weight in range(len(weights)):
+            dp.append([0, weights[ith_weight]])
+            records[weights[ith_weight]][ith_weight] = [None, None]
+            for subsequence_length in range(1, k):
+                next_val_in_seq, next_idx_in_seq = None, -1
+                for prev_D_i in range(ith_weight - D, ith_weight):
+                    if subsequence_length <= prev_D_i + 1:
+                        value = dp[prev_D_i][subsequence_length]
+                        if next_val_in_seq is None or next_val_in_seq < value:
+                            next_val_in_seq, next_idx_in_seq = value, prev_D_i
 
-        for kth in range(k - 1, -1, -1):
-            if indices[kth] + 1 >= length:
-                continue
-            if ((kth - 1 >= 0 and indices[kth - 1] >= indices[kth] + 1) or
-                    (kth + 1 < k and indices[kth] + 1 >= indices[kth + 1])):
-                continue
-            if kth - 1 >= 0 and indices[kth] + 1 - indices[kth - 1] > D:
-                continue
+                if next_val_in_seq is not None:
+                    records[next_val_in_seq + weights[ith_weight]][ith_weight] = [weights[ith_weight], next_val_in_seq]
+                    dp[ith_weight].append(next_val_in_seq + weights[ith_weight])
 
-            indices[kth] += 1
+        max_weight = max(records.keys())
+        idx = list(records[max_weight].keys())[0]
+        max_weight = records[max_weight][idx][1]
+        sentences_indices = [idx]
 
-            if tuple(indices) not in sentences_indices:
-                Document.__get_all_k_sentences__(indices, length, D, sentences_indices)
-                sentences_indices.add(tuple(indices))
+        while True:
 
-            indices[kth] -= 1
+            keys = list(records[max_weight].keys())
+            new_weight, new_idx = None, None
+            for k in keys:
+                if k < idx and (new_idx is None or new_idx < k):
+                    new_idx, new_weight = k, records[max_weight][k][1]
+            idx, max_weight = new_idx, new_weight
+            sentences_indices.append(idx)
 
-    @staticmethod
-    def __get_best_sentence__(indices, sentencesD):
-        max_weight, best_set = 0, []
-        for idx in indices:
-            weight = sum([sentencesD[i][0] for i in idx])
-            if weight > max_weight:
-                max_weight = weight
-                best_set = idx
-        return best_set
+            if max_weight is None:
+                break
+
+        return sentences_indices
 
     def get_top_k_sentence(self, k: int, D: int):
         """
@@ -225,25 +240,10 @@ class Document:
         :param D: (maximum distance between two consecutive sentences)
         :return:
         """
-
-        sentences_indices = set()
-        initial_idx = [_ for _ in range(k)]
-        sentences_indices.add(tuple(initial_idx))
-        print(
-            initial_idx,
-            len(self._sentence_weights),
-            D
-        )
-
-        self.__get_all_k_sentences__(
-            [_ for _ in range(k)],
-            len(self._sentence_weights),
+        top_k_sentences_indices = sorted(self.__get_max_k_weights__(
+            k,
             D,
-            sentences_indices
-        )
-
-        top_k_sentences_indices = self.__get_best_sentence__(
-            sentences_indices,
-            self._sentence_weights
-        )
+            [self._sentence_weights[idx][0] for idx in self._sentence_weights]
+        ))
+        # print(top_k_sentences_indices)
         return [(idx, self._sentence_weights[idx]) for idx in top_k_sentences_indices]

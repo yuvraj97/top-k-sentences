@@ -33,7 +33,7 @@ max_sentence_distance = st_max_sentence_distance.number_input(
 p = Document(data)
 sentences = p.get_top_k_sentence(
     k=k,
-    max_sentence_distance=max_sentence_distance
+    D=max_sentence_distance
 )
 
 for idx, (weight, sentence) in sentences:

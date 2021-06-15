@@ -6,7 +6,7 @@ with open('./input.json') as f:
 
 p = Document(data)
 sentences = p.get_top_k_sentence(
-    k=2,
+    k=15,
     D=10
 )
 
